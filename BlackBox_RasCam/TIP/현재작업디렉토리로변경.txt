@@ -1,0 +1,3 @@
+int chdir(const char *path)
+- 현재 작업 디렉토리를 path로 바꿔준다.
+- 성공시 0, 실패시 EOF return

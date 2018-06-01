@@ -1,0 +1,6 @@
+﻿$raspivid -o test.h264 -w 1280 -h 720 -t 10000
+
+$omxplayer test.h264
+
+
+$whereis raspivid하면 나오는 경로에 저장이된다.

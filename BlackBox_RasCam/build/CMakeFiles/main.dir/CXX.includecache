@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/openCVtest/BlackBox_RasCam/main.cpp
+stdio.h
+-
+iostream
+-
+opencv2/imgproc.hpp
+-
+raspicam/raspicam_cv.h
+-
+opencv2/opencv.hpp
+-
+opencv2/highgui.hpp
+-
+sys/stat.h
+-
+sys/time.h
+-
+sys/types.h
+-
+unistd.h
+-
+errno.h
+-
+sys/vfs.h
+-
+dirent.h
+-
+
+/usr/local/include/raspicam/raspicam_cv.h
+opencv2/core/core.hpp
+-
+opencv2/highgui/highgui.hpp
+-
+

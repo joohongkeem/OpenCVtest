@@ -1,0 +1,41 @@
+$sudo apt-get install v4l-utils
+$v4l2-ctl --list-formats
+
+[출력결과]
+pi@Hongsberry:~/openCVtest/영상처리 $ v4l2-ctl --list-formats
+ioctl: VIDIOC_ENUM_FMT
+	Index       : 0
+	Type        : Video Capture
+	Pixel Format: 'YUYV'
+	Name        : YUYV 4:2:2
+
+(무슨뜻일까?)
+Y : 밝기신호 >> 이게 중요하다
+U,V : 색상신호
+
+>> YUYV이므로 Y:16 U : 8 V:8 - YUV422포맷
+
+$v4l2-ctl --list-formats-ext
+[출력결과]
+pi@Hongsberry:~/openCVtest/영상처리 $ v4l2-ctl --list-formats-ext
+ioctl: VIDIOC_ENUM_FMT
+	Index       : 0
+	Type        : Video Capture
+	Pixel Format: 'YUYV'
+	Name        : YUYV 4:2:2
+		Size: Discrete 640x480
+			Interval: Discrete 0.033s (30.000 fps)
+			Interval: Discrete 0.067s (15.000 fps)
+		Size: Discrete 352x288
+			Interval: Discrete 0.033s (30.000 fps)
+			Interval: Discrete 0.067s (15.000 fps)
+		Size: Discrete 320x240
+			Interval: Discrete 0.033s (30.000 fps)
+			Interval: Discrete 0.067s (15.000 fps)
+		Size: Discrete 176x144
+			Interval: Discrete 0.033s (30.000 fps)
+			Interval: Discrete 0.067s (15.000 fps)
+		Size: Discrete 160x120
+			Interval: Discrete 0.033s (30.000 fps)
+			Interval: Discrete 0.067s (15.000 fps)
+

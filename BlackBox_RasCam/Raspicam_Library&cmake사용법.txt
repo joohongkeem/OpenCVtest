@@ -1,0 +1,43 @@
+#1. raspacam 라이브러리 설치하기
+
+
+1-1. 라이브러리 다운로드
+pi@raspberrypi:~ $ wget https://downloads.sourceforge.net/project/raspicam/raspicam-0.1.6.zip
+pi@raspberrypi:~ $ unzip raspicam-0.1.6.zip
+pi@raspberrypi:~ $ cd raspicam-0.1.6
+pi@raspberrypi:~/raspicam-0.1.6 $ mkdir build
+pi@raspberrypi:~/raspicam-0.1.6 $ cd build
+pi@raspberrypi:~/raspicam-0.1.6/build $ cmake 
+
+1-2. 컴파일 및 설치
+pi@raspberrypi:~/raspicam-0.1.6/build $ make && sudo make install
+pi@raspberrypi:~/raspicam-0.1.6/build $ sudo ldconfig
+
+1-3. 필요없는 파일 제거
+pi@raspberrypi:~/raspicam-0.1.6/build $ cd
+pi@raspberrypi:~ $ rm -rf raspicam*
+
+
+#2. cmake사용법
+
+2-1. CMakeList.txt 파일 만들기
+pi@raspberrypi:~/raspicam_example_with_opencv2 $ nano CMakeLists.txt
+
+(내용 입력)
+cmake_minimum_required (VERSION 2.8) 
+ 
+set(CMAKE_MODULE_PATH "/usr/local/lib/cmake/${CMAKE_MODULE_PATH}") 
+find_package(raspicam REQUIRED)
+find_package(OpenCV)
+ 
+add_executable (main main.cpp)  
+target_link_libraries (main ${raspicam_CV_LIBS})
+(저장후 종료)
+
+2-2 컴파일
+pi@raspberrypi:~/raspicam_example_with_opencv2 $ mkdir build
+pi@raspberrypi:~/raspicam_example_with_opencv2 $ cd build
+pi@raspberrypi:~/raspicam_example_with_opencv2/build $ cmake ..
+pi@raspberrypi:~/raspicam_example_with_opencv2/build $ make
+
+2-3. ./~~~~~ 으로 실행

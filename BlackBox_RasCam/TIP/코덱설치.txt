@@ -1,0 +1,4 @@
+https://www.xvid.com/download/
+
+libxvidcore4 1.33-dmo1 armhf.deb 다운로드
+libxvidcore-dev_1.3.3-dmo1_armhf.deb 다운로드

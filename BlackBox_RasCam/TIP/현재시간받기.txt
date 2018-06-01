@@ -1,0 +1,264 @@
+[_strtime]
+(특징) 현재 시간을 문자열로 만들어주는 함수이다.
+(형태) char *_strtime( char *timestr );
+ex>
+char tbuffer [9];
+_strtime( tbuffer );  // 13:53:24 (시:분:초)형식이며, 24시간으로 표시된다.
+
+[_strdate]
+(특징) 오늘 날짜를 문자열로 만들어 주는 함수이다.
+(형태) char *_strdate( char *datestr );
+ex>
+char dbuffer [9];
+_strdate( dbuffer );  // 04/17/09 (월/일/년)형식으로 표시된다.
+
+ 
+
+[strftime]
+(특징) 이 함수는 사용자가 지정한 형식대로 현재시간을 문자열로 출력하는 함수이다.
+(형태) size_t strftime( char *strDest, size_t maxsize, const char *format, const struct tm *timeptr );
+
+
+%a
+요일, day of week
+세 문자 영어 약어
+Sun
+
+%A
+요일, day of week
+영어 전체 이름
+Sunday
+
+%b
+월, month
+세 문자 영어 약어
+Dec
+
+%B
+월, month
+영어 전체 이름
+December
+
+%c
+날짜/시간
+두 자리씩, 월/일/년 시/분/초
+12년 9월 6일 23시 58분
+
+%d
+일, day
+두 자리(01 - 31)
+10
+
+%H
+시, hour
+24시간 형식의 두 자리(00 - 23)
+0
+
+%I
+시, hour
+12시간 형식의 두 자리(01 - 12)
+12
+
+%j
+일수, day of year
+세 자리(001 - 366)
+344
+
+%m
+월, month
+두 자리(01 - 12)
+12
+
+%M
+분, minute
+두 자리(00 - 59)
+39
+
+%p
+시, hour
+두 문자, AM 또는 PM
+AM
+
+%S
+초, second
+두 자리(00 - 59)
+50
+
+%U
+주, week of year
+두 자리(00 - 53)
+50
+
+%w
+요일, day of week
+한 자리(0 - 6)
+0
+
+%W
+주, week of year
+두 자리(00 - 53)
+49
+
+%x
+날짜, date
+두 자리씩, 월/일/년
+2012년 10월 6일
+
+%X
+시간, time
+두 자리씩, 시/분/초
+0시 42분 40초
+
+%y
+년, year
+두 자리(00 - 99)
+6
+
+%Y
+년, year
+네 자리(0000 - 9999)
+2006
+
+%z, Z
+시간대, time zone
+레지스트리 정의 사용
+대한민국 표준시
+
+%
+%, percent
+한 문자, % 기호
+%
+
+ex>
+time_t cur;
+struct tm* ptm;
+char buf[100] = {0};
+
+cur = time(NULL);
+ptm = localtime(&cur);
+//현재 시간을 얻어온다.
+
+
+strftime(buf, sizeof(buf), "%c", ptm);
+//12/10/06 15:30:05
+strftime(buf, sizeof(buf), "%m/%d/%y %H:%M:%S", ptm);
+//12/10/06 15:30:05
+strftime(buf, sizeof(buf), "%Y년 %#m월 %#d일 %#I시 %#M분 %#S초", ptm);
+//2006년 12월 10일 3시 30분 5초
+strftime(buf, sizeof(buf), "%I:%M %p", ptm);
+//03:30 PM
+// 위 함수를 사용하기 위해서는 localtime(...); 함수로 시간을 우선 얻어와야 한다.
+
+ 
+
+참고 : 위의 strtime함수 사용시 include <time.h>을 추가해야 한다.
+strtime함수를 제외한 함수들을 사용시 include <iostream>을 추가해야 한다.
+
+ 
+
+ctime
+
+현재 시간과 날짜을 문자열로 만들어주는 함수이다. (UNIX time and date)
+
+char *ctime( const time_t *timer );
+
+ex>
+time_t ltime;
+time( &ltime );
+ctime( &ltime )  // "Fri Apr 17 16:08:19 2009" (요일 월 일 시:분:초 년)형식이며, 24시간으로 표시된다.
+
+ 
+
+asctime
+
+현재 시간과 날짜을 문자열로 만들어주는 함수이다.(Coordinated universal time)
+
+char *asctime( const struct tm *timeptr );
+
+ex>
+
+struct tm *newtime;
+time_t aclock;
+time( &aclock );
+
+ 
+
+newtime = gmtime( &aclock );  //세계 표준시간
+newtime = localtime( &aclock );  //핸재컴퓨터 시간 (둘중 하나만 사용)
+
+ 
+
+asctime( newtime )  // "Fri Apr 17 16:08:19 2009" (요일 월 일 시:분:초 년)형식이며, 24시간으로 표시된다.
+
+ 
+
+현재시간을 12시간으로 표시하기
+
+ex>
+
+char tmpbuf[128], ampm[] = "AM";
+time_t ltime;
+struct tm *today, *gmt, xmas = { 0, 0, 12, 25, 11, 93 };
+
+ 
+
+today = localtime( &ltime );
+  if( today->tm_hour > 12 )  //12시간이 넘었다면
+  {
+    ampm[0] = 'P';  //오후로 전환
+    today->tm_hour -= 12;  //12시간으로 변경
+  }
+
+
+  if( today->tm_hour == 0 ) today->tm_hour = 12;  //12시간제이면 0시가 없으므로 12시로 변경
+ 
+
+  printf( "12-hour time: %.8s %s", asctime( today ) + 11, ampm ); 
+
+// asctime( today ) + 11 부분이 앞으부분을 뛰어 넘고,  %.8s 부분으로 8자리만을 출력한다.
+
+// "04:08:19 PM" (시:분:초 오전/오후)형식이며, 12시간으로 표시된다.
+
+ 
+
+특정 날짜의 시간구하기 (각각의 날짜에 따른 요일을 구할 수 있다.)
+
+ex>
+struct tm xmas = { 0, 0, 12, 25, 11, 109 };  // (초, 분, 시, 일, 월, 년) 년의 경우 109가 2009년이다.
+
+if( mktime( &xmas ) != (time_t)-1 )  //위에서 설정한 시간에 맞는 값을 생성한다.
+
+{
+
+  printf( "Christmas %s\n", asctime( &xmas ) );
+
+}
+
+ // "Fri Dec 25 12:00:00 2009" (요일 월 일 시:분:초 년)형식이며, 24시간으로 표시된다.
+
+ 
+
+_ftime
+
+현재 시간을 문자열로 만들어주는 함수이다.
+
+void _ftime( struct _timeb *timeptr );
+
+ex>
+
+#include <sys/timeb.h>
+struct _timeb tstruct;
+
+_ftime( &tstruct );
+
+ 
+
+printf( "Plus milliseconds: %u\n", tstruct.millitm );  // "156" 밀리세컨드시간을 나타낸다.
+printf( "Zone difference in seconds from UTC: %u\n", tstruct.timezone );  //세계 표준시간
+printf( "Time zone name: %s\n", _tzname[0] );  // "대한민국 표준시" 현재 표준시간대를 나타낸다.
+printf( "Daylight savings: %s\n", tstruct.dstflag ? "YES" : "NO" );  // 일명 Summer Time이라고도하는 것으로 여름에 1시간을 앞당기는 것을 말한다.
+
+timeline = ctime( & ( tstruct.time ) );
+printf( "The time is %.19s.%hu %s", timeline, tstruct.millitm, &timeline[20] );
+
+// "Fri Apr 17 16:08:19.123 2009" (요일 월 일 시:분:초.밀리초 년)형식이며, 24시간으로 표시된다.

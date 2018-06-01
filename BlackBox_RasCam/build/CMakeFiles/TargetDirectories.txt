@@ -1,0 +1,3 @@
+/home/pi/openCVtest/BlackBox_RasCam/build/CMakeFiles/rebuild_cache.dir
+/home/pi/openCVtest/BlackBox_RasCam/build/CMakeFiles/edit_cache.dir
+/home/pi/openCVtest/BlackBox_RasCam/build/CMakeFiles/main.dir

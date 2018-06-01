@@ -1,0 +1,10 @@
+putText(Mat& image : 문자열을 작성할 대상 행렬
+        ,const string& my Text : 출력할 문자열
+		,Point org : 문자열의 시작 좌표
+		,int fontFace : 문자열에 대한 글꼴
+		,double fontScale : 글자 크기 확대 비율
+		,Scalar color : 글자의 색상(BGR)
+		,int thickness : 글자의 굵기
+		,int lineType : 글자선의 형태
+		,bool bottom LeftOrigin : 영상의  원점 좌표를 하단 왼쪽으로 설정 (기본 값 : 하단 왼쪽)
+		);

@@ -1,0 +1,2 @@
+g++ -o ~~~ ~~~~.cpp $(pkg-config --libs --cflags opencv)
+
